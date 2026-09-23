@@ -71,7 +71,7 @@ CREATE TABLE `cliente` (
 
 INSERT INTO `cliente` (`idcliente`, `nome`, `cpf`, `telefone`, `datacadastro`, `cidade`, `uf`) VALUES
 (1, 'Ana Silva', '44444444444', '11988880001', '2024-01-15', 'São Paulo', 'SP'),
-(2, 'Bruno Costa', '55555555555', '31988880002', '2024-03-22', 'Belo Horizonte', 'MG'),
+(2, 'Eduardo Costa', '55555555555', '31988880002', '2024-03-22', 'Belo Horizonte', 'MG'),
 (4, 'Cecilia Silva', '77777777777', '11988880004', '2016-09-01', 'Ribeirão Pires', 'SP'),
 (5, 'Pedro Sachetto', '88888888888', '11988880005', '2016-09-01', 'Ribeirão Pires', 'SP');
 
