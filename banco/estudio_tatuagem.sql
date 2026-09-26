@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09/09/2026 às 19:55
+-- Tempo de geração: 26/09/2026 às 04:59
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -73,7 +73,8 @@ INSERT INTO `cliente` (`idcliente`, `nome`, `cpf`, `telefone`, `datacadastro`, `
 (1, 'Ana Silva', '44444444444', '11988880001', '2024-01-15', 'São Paulo', 'SP'),
 (2, 'Eduardo Costa', '55555555555', '31988880002', '2024-03-22', 'Belo Horizonte', 'MG'),
 (4, 'Cecilia Silva', '77777777777', '11988880004', '2016-09-01', 'Ribeirão Pires', 'SP'),
-(5, 'Pedro Sachetto', '88888888888', '11988880005', '2016-09-01', 'Ribeirão Pires', 'SP');
+(5, 'Pedro Sachetto', '88888888888', '11988880005', '2016-09-01', 'Ribeirão Pires', 'SP'),
+(6, 'Tatiane Silva', '99999999999', '2198765432', '2026-09-26', 'Ouro Preto', 'MG');
 
 -- --------------------------------------------------------
 
@@ -223,7 +224,7 @@ ALTER TABLE `agendamento`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `estilo`
