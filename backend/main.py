@@ -1,6 +1,6 @@
 from fastapi import FastAPI  # importa o FastAPI
 from fastapi.middleware.cors import CORSMiddleware  # importa o middleware de CORS
-from rotas import clientes, senioridade, tatuadores   # ← adiciona tatuadores aqui
+from rotas import clientes, senioridade, tatuadores, agendamentos   # ← adiciona agendamentos aqui
 
 app = FastAPI()              # cria a aplicação
 
@@ -15,6 +15,7 @@ app.add_middleware(
 app.include_router(clientes.router)  # registra as rotas de clientes na API
 app.include_router(senioridade.router)   # ← registra a nova rota
 app.include_router(tatuadores.router)   # ← registra a nova rota
+app.include_router(agendamentos.router)   # ← registra a nova rota
 
 @app.get("/")                # define que essa função responde ao endereço "/"
 def inicio():                # quando alguém acessar "/", essa função vai rodar
