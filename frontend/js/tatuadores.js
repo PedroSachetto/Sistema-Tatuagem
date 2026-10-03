@@ -29,6 +29,25 @@ async function carregarSenioridades() {
 
 carregarSenioridades()
 
+// ─── Busca os estilos na API e monta os checkboxes ───
+async function carregarEstilos() {
+  const resposta = await fetch(`${API}/estilos`)
+  const estilos = await resposta.json()
+
+  const lista = document.getElementById('lista-estilos')
+  lista.innerHTML = ''
+
+  estilos.forEach(e => {
+    lista.innerHTML += `
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="${e.idestilo}" id="estilo-${e.idestilo}">
+        <label class="form-check-label" for="estilo-${e.idestilo}">${e.descricao}</label>
+      </div>`
+  })
+}
+
+carregarEstilos()
+
 // ─── Carrega a lista de tatuadores ao abrir a página ───
 async function listarTatuadores() {
   const resposta = await fetch(`${API}/tatuadores`)
@@ -46,6 +65,7 @@ async function listarTatuadores() {
         <td>${t.email ?? '-'}</td>
         <td>${t.telefone ?? '-'}</td>
         <td>${t.senioridade}</td>
+        <td>${t.estilos ?? '-'}</td>
         <td>
           <button class="btn btn-sm btn-warning me-2" onclick='preencherFormularioEdicao(${JSON.stringify(t)})'>Editar</button>
           <button class="btn btn-sm btn-danger" onclick="deletarTatuador(${t.idtatuador})">Excluir</button>
@@ -55,6 +75,51 @@ async function listarTatuadores() {
 }
 
 listarTatuadores()
+
+formTatuador.addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const tatuador = {
+    nometatuador: document.getElementById('nometatuador').value,
+    cpf: document.getElementById('cpf').value,
+    email: document.getElementById('email').value || null,
+    telefone: document.getElementById('telefone').value || null,
+    datacontratacao: new Date().toISOString().split('T')[0],
+    idsenioridade: Number(document.getElementById('idsenioridade').value)
+  }
+
+  const idTatuador = formTatuador.dataset.idTatuador
+  let idParaEstilos = idTatuador   // qual id vamos usar pra salvar os estilos
+
+  if (idTatuador) {
+    await fetch(`${API}/tatuadores/${idTatuador}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tatuador)
+    })
+  } else {
+    const resposta = await fetch(`${API}/tatuadores`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tatuador)
+    })
+    const dados = await resposta.json()
+    idParaEstilos = dados.idtatuador   // pega o id que acabou de ser criado
+  }
+
+  // ─── Salva os estilos marcados, numa segunda chamada ───
+  const idsMarcados = Array.from(document.querySelectorAll('#lista-estilos input:checked'))
+    .map(checkbox => Number(checkbox.value))
+
+  await fetch(`${API}/tatuadores/${idParaEstilos}/estilos`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ idestilos: idsMarcados })
+  })
+
+  limparFormulario()
+  listarTatuadores()
+})
 
 // ─── Cadastrar e atualizar tatuadores ───
 formTatuador.addEventListener('submit', async (e) => {
@@ -92,15 +157,24 @@ formTatuador.addEventListener('submit', async (e) => {
 })
 
 // ─── Abre os dados do tatuador no formulário para edição ───
-function preencherFormularioEdicao(tatuador) {
+async function preencherFormularioEdicao(tatuador) {
   document.getElementById('nometatuador').value = tatuador.nometatuador
   document.getElementById('cpf').value = tatuador.cpf
   document.getElementById('email').value = tatuador.email || ''
   document.getElementById('telefone').value = tatuador.telefone || ''
   document.getElementById('idsenioridade').value = tatuador.idsenioridade
-  // o navegador encontra a <option> com esse value e a seleciona sozinho
 
   formTatuador.dataset.idTatuador = tatuador.idtatuador
+
+  // desmarca todos os checkboxes antes de marcar os certos
+  document.querySelectorAll('#lista-estilos input').forEach(cb => cb.checked = false)
+
+  const resposta = await fetch(`${API}/tatuadores/${tatuador.idtatuador}/estilos`)
+  const estilosDoTatuador = await resposta.json()
+  estilosDoTatuador.forEach(e => {
+    const checkbox = document.getElementById(`estilo-${e.idestilo}`)
+    if (checkbox) checkbox.checked = true
+  })
 
   botaoSubmit.textContent = 'Salvar alteração'
   botaoSubmit.classList.remove('btn-primary')
