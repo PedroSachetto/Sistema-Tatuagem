@@ -17,11 +17,11 @@ app.add_middleware(
 os.makedirs("uploads", exist_ok=True)   # garante que a pasta existe antes de tentar servir arquivos dela
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")   # ← serve as imagens
 
-app.include_router(clientes.router)  # registra as rotas de clientes na API
-app.include_router(senioridade.router)   # ← registra a nova rota
-app.include_router(tatuadores.router)   # ← registra a nova rota
-app.include_router(agendamentos.router)   # ← registra a nova rota
-app.include_router(estilos.router)   # ← registra a nova rota
+app.include_router(clientes.router, prefix="/clientes", tags=["Clientes"])  # registra as rotas de clientes na API
+app.include_router(senioridade.router, prefix="/senioridade", tags=["Senioridade"])   # ← registra a nova rota
+app.include_router(tatuadores.router, prefix="/tatuadores", tags=["Tatuadores"])   # ← registra a nova rota
+app.include_router(agendamentos.router, prefix="/agendamentos", tags=["Agendamentos"])   # ← registra a nova rota
+app.include_router(estilos.router, prefix="/estilos", tags=["Estilos"])   # ← registra a nova rota
 
 @app.get("/")                # define que essa função responde ao endereço "/"
 def inicio():                # quando alguém acessar "/", essa função vai rodar
