@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/10/2026 às 19:53
+-- Tempo de geração: 11/10/2026 às 19:56
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -77,7 +77,9 @@ INSERT INTO `cliente` (`idcliente`, `nome`, `cpf`, `telefone`, `datacadastro`, `
 (2, 'Eduardo Costa', '55555555555', '31988880002', '2024-03-22', 'Belo Horizonte', 'MG'),
 (4, 'Cecilia Silva', '77777777777', '11988880004', '2016-09-01', 'Ribeirão Pires', 'SP'),
 (5, 'Pedro Sachetto', '88888888888', '11988880005', '2016-09-01', 'Ribeirão Pires', 'SP'),
-(6, 'Tatiane Silva', '99999999999', '2198765432', '2026-09-26', 'Ouro Preto', 'MG');
+(6, 'Tatiane Silva', '99999999999', '2198765432', '2026-09-26', 'Ouro Preto', 'MG'),
+(7, 'Lucas Henrique Silva', '98765432100', '11976543210', '2026-10-10', 'São Paulo', 'SP'),
+(8, 'Henrique Silva', '97765432100', '11956543210', '2026-10-11', 'São Paulo', 'SP');
 
 -- --------------------------------------------------------
 
@@ -197,7 +199,10 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idusuario`, `nome`, `email`, `senha`, `tipo`, `idcliente`) VALUES
 (1, 'Otavio', 'tacinho@app.com', '$2b$12$AakMExt0dPAjtKiyYRYKmO2PdGBgIx4vNdrE/EnC9C.sNZqETig5O', 'funcionario', NULL),
-(2, 'Luiz Silva', 'lulu@etec.com', '$2b$12$GeEjGmZmq.6tq8ON3p9p7.yVFgJ08AXL5hJh3YmyLuzzRxeDJge8e', 'funcionario', NULL);
+(2, 'Luiz Silva', 'lulu@etec.com', '$2b$12$GeEjGmZmq.6tq8ON3p9p7.yVFgJ08AXL5hJh3YmyLuzzRxeDJge8e', 'funcionario', NULL),
+(3, 'Administrador', 'admin@estudio.com', '$2b$12$bQwtR4HMwlRvuEk1Foska.Dnu.FjEerTDFxsemRAFUds3gUByo3SW', 'admin', NULL),
+(4, 'Carlos Silva', 'caca@gmail.com', '$2b$12$fgyPshXCd8NQovkCG.4AvOPlhpxgsZFFgTEQXtffVyOhsYociZFJW', 'funcionario', NULL),
+(5, 'Carla Moraes', 'carla@email.com', '$2b$12$J1QVZhK1OIftTPfvVw2BGu8m0SqOGzPdixxmh5PxbPtYGE0g15Rtu', 'funcionario', NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -267,7 +272,7 @@ ALTER TABLE `agendamento`
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `estilo`
@@ -291,7 +296,7 @@ ALTER TABLE `tatuador`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas
