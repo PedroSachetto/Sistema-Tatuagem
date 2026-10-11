@@ -17,7 +17,8 @@
                 <a href="senioridade.html" class="text-light me-3">Senioridade</a>
                 <a href="estilos.html" class="text-light me-3">Estilos</a>
                 <a href="tatuadores.html" class="text-light me-3">Tatuadores</a>
-                <a href="agendamento.html" class="text-light">Agendamentos</a>
+                <a href="agendamentos.html" class="text-light me-3">Agendamentos</a>
+                <button onclick="sair()" class="btn btn-outline-light btn-sm">Sair</button>
             </div>
         </div>
     </nav>
@@ -38,18 +39,20 @@
         <div class="col-md-2">
             <input type="text" id="telefone" class="form-control" placeholder="Telefone">
         </div>
+
+        <div class="col-md-12">
+            <label class="form-label">Estilos que domina</label>
+            <div id="lista-estilos" class="d-flex flex-wrap gap-3">
+                <!-- os checkboxes são preenchidos pelo JavaScript -->
+            </div>
+        </div>
+
         <div class="col-md-2">
             <select id="idsenioridade" class="form-select" required>
                 <option value="">Senioridade...</option>
                 <!-- as opções são preenchidas pelo JavaScript -->
             </select>
 
-            <div class="col-md-12">
-                <label class="form-label">Estilos que domina</label>
-                <div id="lista-estilos" class="d-flex flex-wrap gap-3">
-                    <!-- os checkboxes são preenchidos pelo JavaScript -->
-                </div>
-            </div>
 
         </div>
         <div class="col-md-2">
@@ -77,6 +80,7 @@
         </tbody>
     </table>
 
+    <script src="js/auth.js"></script>
     <script src="js/tatuadores.js"></script>
 
 </body>
