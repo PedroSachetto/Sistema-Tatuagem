@@ -38,6 +38,7 @@ body {
 .navbar {
   background: #121c1b;
   border-bottom: 6px solid #c4291f;
+  border-radius: 15px;
 }
 
 .navbar .container {
@@ -98,6 +99,11 @@ h1 {
 
 .col-md-12 {
   grid-column: span 12;
+}
+
+#btn-submit-agendamento {
+  position: relative;
+  top: 30px;
 }
 
 .form-control,
