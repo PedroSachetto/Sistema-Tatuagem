@@ -1,26 +1,42 @@
-const API = 'http://127.0.0.1:8000'
-const formLogin = document.getElementById('form-login')
+const API = 'http://127.0.0.1:8000';
+
+const formLogin = document.getElementById('form-login');
 
 formLogin.addEventListener('submit', async (e) => {
-  e.preventDefault()
+e.preventDefault();
 
-  const dados = {
+// Remove o token antigo antes de tentar entrar novamente.
+localStorage.removeItem('token');
+
+const dados = {
     email: document.getElementById('email').value,
     senha: document.getElementById('senha').value
-  }
+};
 
-  const resposta = await fetch(`${API}/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(dados)
-  })
+try {
+    const resposta = await fetch(`${API}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dados)
+    });
 
-  const resultado = await resposta.json()
+    const resultado = await resposta.json();
 
-  if (resposta.ok) {
-    localStorage.setItem('token', resultado.access_token)   // guarda o token na "gaveta"
-    window.location.href = 'dashboard.html'
-  } else {
-    alert('Erro ao entrar: ' + resultado.erro)
-  }
-})
+    // Só permite entrar se o backend retornar um token.
+    if (resposta.ok && resultado.access_token) {
+        localStorage.setItem('token', resultado.access_token);
+        window.location.href = 'dashboard.html';
+    } else {
+        alert(
+            'Erro ao entrar: ' +
+            (resultado.detail || resultado.erro || 'E-mail ou senha inválidos.')
+        );
+    }
+} catch (erro) {
+    alert('Não foi possível conectar ao servidor.');
+    console.error('Erro no login:', erro);
+}
+
+});
